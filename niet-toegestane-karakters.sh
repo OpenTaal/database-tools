@@ -1,0 +1,8 @@
+#TODO https://sf.own-it.nl/projects/opentaal/wiki/Leestekens
+if [ ! -e ../.database-username -a ! -e ../.database-password ]
+then
+	echo ERROR: Missing ../.database-username and/or ../.database-password files
+	exit 1
+fi
+mysql --silent opentaal -u `cat ../.database-username` -p`cat ../.database-password` -D opentaal -v -e "SELECT next_version,word,base_word,alternatief,aantekeningen FROM words_list WHERE word LIKE '%Ĳ%' OR word LIKE '%ĳ%' OR word LIKE '%ÿ%' OR word LIKE '%Ÿ%' OR word LIKE '%æ%' OR word LIKE '%Æ%' OR word LIKE '%œ%' OR word LIKE '%Œ%' OR word LIKE '%ẞ%' OR word LIKE '%ß%' OR word LIKE '%Č%' OR word LIKE '%č%' OR word LIKE '%Ř%' OR word LIKE '%ř%' OR word LIKE '%Ž%' OR word LIKE '%ž%' OR word LIKE '%Đ%' OR word LIKE '%đ%' OR word LIKE '%Š%' OR word LIKE '%š%' OR word LIKE '%Ł%' OR word LIKE '%ł%' OR word LIKe '%ć%' OR word LIKE '%Ć%' OR word LIKE '%∅%' OR word LIKE '%α%' OR word LIKE '%β%' OR word LIKE '%γ%' OR word LIKE '%μ%' OR word LIKE '%\%' OR word LIKE '%^%' OR word LIKE '%ſ%' OR word LIKE '%¹%' OR word LIKE '%₁%' OR word LIKE '%°%' OR word LIKE '%₀%' OR word LIKE '%⁰%' OR word LIKE '%?%' OR word LIKE '%!%' OR word LIKE '%:%' OR word LIKE '%;%' OR word LIKE '%>%' OR word LIKE '%<%' OR word LIKE '%@%' OR word LIKE '%*%' OR word LIKE '%×%' OR word LIKE '%±%' OR word LIKE '%[_]%' OR word LIKE '%(%' OR word LIKE '%)%' OR word LIKE '%≤%' OR word LIKE '%≥%' OR word LIKE '%=%' OR word LIKE '%|%' OR word LIKE '%{%' OR word LIKE '%}%' OR word LIKE '%[%]%' OR word LIKE '%\"%' order by next_version,word"|tail -n +5>niet-toegestane-karakters.tsv
+echo Aantal woorden met niet-toegestane karakters: `cat niet-toegestane-karakters.tsv|wc -l`

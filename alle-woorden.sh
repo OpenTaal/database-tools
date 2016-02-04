@@ -3,5 +3,8 @@ then
 	echo ERROR: Missing ../.database-username and/or ../.database-password files
 	exit 1
 fi
-mysql --silent opentaal -u `cat ../.database-username` -p`cat ../.database-password` -D opentaal -v -e "SELECT word FROM words_list WHERE next_version <> 'x' AND next_version <> 'X' AND next_version <> '-' AND next_version <> '?' AND next_version <> 'y' AND next_version <> 'z' AND next_version <> 'd' AND next_version <> 'D' order by word"|sort>alle-woorden.txt
-echo Aantal woorden: `cat alle-woorden.txt|tail -n +5|wc -l`
+mysql --silent opentaal -u `cat ../.database-username` -p`cat ../.database-password` -D opentaal -v -e "SELECT 2_10,next_version,exclude_spell_checker,temporal_qualifier,word,base_word,alternatief,aantekeningen FROM words_list WHERE next_version <> '-' ORDER BY word"|tail -n +5>alle-woorden.tsv
+echo Aantal woorden: `cat alle-woorden.tsv|wc -l`
+echo -e "2_10\tnext\texclude\ttemporal\tword\tbasiswoord\talternatief\taantekeningen">header
+cat alle-woorden.tsv>>header
+mv -f header alle-woorden.tsv
