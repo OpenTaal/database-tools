@@ -5,3 +5,6 @@ then
 fi
 mysql --silent opentaal -u `cat ../.database-username` -p`cat ../.database-password` -D opentaal -v -e "SELECT word,2_10,next_version,base_word,alternatief,aantekeningen FROM words_list WHERE aantekeningen LIKE '%TODO%' ORDER BY word"|tail -n +5|sort>alles-todo.tsv
 echo Aantal woorden met TODO in aantekeningen: `cat alles-todo.tsv|wc -l`
+echo -e "woord\t2_10\tnext\tbasisword\talternatief\taantekeningen">header
+cat alles-todo.tsv>>header
+mv -f header alles-todo.tsv

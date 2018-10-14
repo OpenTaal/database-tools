@@ -9,4 +9,4 @@ echo Aantal woorden in zoekresultaat: `cat te-keuren.tsv|wc -l`
 echo -e "2_10\tnext\texclude\ttemp\twoord\tbasiswoord\talternatief\taantekeningen">header
 cat te-keuren.tsv>>header
 mv -f header te-keuren.tsv
-mv -f te-keuren.tsv te-keuren-`date +%Y%m%d`.tsv
+#mv -f te-keuren.tsv te-keuren-`date +%Y%m%d`.tsv
